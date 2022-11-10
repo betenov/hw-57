@@ -1,12 +1,20 @@
 import React from 'react';
-import User from "./User";
+import User from "./User1";
 
-const Users = () => {
+
+
+interface Props {
+  // @ts-ignore
+  users:User[]
+}
+
+const Users:React.FC<Props> = ({users}) => {
   return (
     <div>
-      <User/>
-      <User/>
-      <User/>
+    <h3>Users</h3>
+      {users.map(user => (
+        <User key={user.id} user={user}/>
+      ))}
     </div>
   );
 };
