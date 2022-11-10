@@ -21,6 +21,7 @@ const UserForm:React.FC<Props> = ({onSubmit}) => {
   };
   const onFormSubmit = (e:React.FormEvent) => {
     e.preventDefault();
+    console.log(users)
     onSubmit({
       id:Math.random().toString(),
       ...users,
@@ -41,13 +42,22 @@ const UserForm:React.FC<Props> = ({onSubmit}) => {
       </div>
       <div className="form-group">
         <label  className="p-3">Active
-          <input name="isDone" id="checkbox" type="checkbox" className="ms-2" />
+          <input name="isDone" id="checkbox" type="checkbox" className="ms-2" checked={users.isDone}
+          onChange={(e) => {
+           setUsers(prevState => ({...prevState, isDone:e.target.checked}))
+          }}
+          />
         </label>
 
       </div>
       <div className="form-group mb-5">
         <label>
-           <select className="p-2" name="category">
+           <select className="p-2" name="category" value={users.category}
+                   onChange={(e) => {
+                     setUsers(prevState => ({...prevState, category:e.target.value}))
+                   }}
+           >
+             <option disabled value=''> Select a category</option>
             <option>Admin</option>
             <option>User</option>
             <option>Editor</option>
